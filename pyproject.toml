@@ -1,0 +1,9 @@
+[project]
+name = "backend-i"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "typer>=0.23.2",
+]
