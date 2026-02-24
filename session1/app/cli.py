@@ -8,7 +8,8 @@ def create_meeting(title: str, date: str, owner: str) -> None:
     try:
         datetime.date.fromisoformat(date)
     except ValueError:
-        raise ValueError("Incorrect data format, should be YYYY-MM-DD")
+        print("O formato da data está errado. Tem de ser YYYY-MM-DD")
+        raise typer.Exit(code=1)
 
     print(title, date, owner)
     typer.echo(f"Hello from Typer!!!")
