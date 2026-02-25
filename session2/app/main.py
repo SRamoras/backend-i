@@ -1,11 +1,11 @@
 import typer
+from services.memory_store import meetings 
 
-app = typer.Typer()
+cli = typer.Typer()
 
-@app.command()
-def add(title: str, date: str, owner: str) -> None:
-    
-    typer.echo(f"Hello from Typer!!!")
+@cli.command()
+def output():
+    typer.echo(meetings)
 
 if __name__ == "__main__":
-    app()
+    cli()   
