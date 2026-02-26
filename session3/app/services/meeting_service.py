@@ -11,3 +11,10 @@ def create_meeting(title: str, date: str, owner: str) -> Meeting:
 
 def list_meetings() -> list[Meeting]:
     return meetings
+
+def show_meeting(meeting_id: str) -> Meeting:
+    for meeting in meetings:
+        if meeting.id == meeting_id:
+            return meeting
+        else: 
+            return "Meeting not found"
