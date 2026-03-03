@@ -1,4 +1,5 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
+import json
 
 @dataclass
 class Meeting:
@@ -14,3 +15,9 @@ date: {self.date}
 ---
 # Meeting
 """
+
+
+@dataclass
+class MeetingData:
+    metting: Meeting
+    path: str

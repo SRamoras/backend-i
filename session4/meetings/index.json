@@ -1,14 +1,18 @@
 [
     {
-        "path": "meetings/328fb106-25fe-453c-9463-9b1b340556b5.md",
-        "title": "dsa",
-        "owner": "dsa",
-        "date": "dsa"
+        "metting": {
+            "title": "ola",
+            "owner": "das",
+            "date": "dsa"
+        },
+        "path": "meetings/a06dea4f-55f1-42ea-bbf5-04a6ccfb49ee.md"
     },
     {
-        "path": "meetings/7a2fe11d-dc57-4578-b9b2-0f3826b51ad6.md",
-        "title": "dsa",
-        "owner": "dsa",
-        "date": "dsa"
+        "metting": {
+            "title": "ola",
+            "owner": "das",
+            "date": "dsa"
+        },
+        "path": "meetings/61693bb9-a4a0-4880-bae9-97d3a432e313.md"
     }
 ]

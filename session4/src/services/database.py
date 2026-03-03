@@ -23,10 +23,12 @@
 
 
 
-from data.models import Meeting
+from data.models import Meeting, MeetingData
 from uuid import uuid4
 from pathlib import Path
+from dataclasses import asdict
 import json
+
 BASE_PATH = Path("meetings") 
 INDEX_PATH = Path("meetings/index.json")
 
@@ -38,22 +40,21 @@ def create(meeting: Meeting):
         file.writelines(str(meeting))
 
 
-
     if not INDEX_PATH.exists():
         INDEX_PATH.touch()
 
-    with open(INDEX_PATH,'r') as file:
+    with open(INDEX_PATH,"r") as file:
         if INDEX_PATH.stat().st_size > 0:
-            index_content = json.load(file)
+            index_content:list = json.load(file)
         else:
             index_content = []
-            
-    new_index_entry = {
-        "path": fileName,
-        "title": meeting.title,
-        "owner": meeting.owner,
-        "date": meeting.date
-    }
+    
+    new_index_entry = (
+        asdict(MeetingData(
+            metting=meeting,
+            path=fileName
+        ))
+    )
     index_content.append(new_index_entry)
 
     with open(INDEX_PATH, "w") as file:
