@@ -36,3 +36,13 @@ def create(car: Car):
 
     with open(INDEX_PATH, "w") as file:
         json.dump(indexFileContent, file)
+
+
+def list():
+    with open(INDEX_PATH, "r") as file:
+        indexFileContent:list = json.load(file)
+
+    count = 0
+    for car in indexFileContent:
+        count += 1
+        print(f"{count}) matricula: {car['registration']} - preço: {car['price']}€")
