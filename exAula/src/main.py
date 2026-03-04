@@ -17,11 +17,13 @@ def create(registration: str, model: str, price: float, date: str):
 
 
 @cli.command()
-def list():
-    car_service.list()
+def listCars():
+    car_service.listCars()
 
 
-
+@cli.command()
+def delete(registration: str):
+    car_service.delete(registration)
 
 
 if __name__ == "__main__":

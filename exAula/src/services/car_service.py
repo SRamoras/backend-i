@@ -18,7 +18,8 @@ def create(car: Car):
 
     if not INDEX_PATH.exists():
         INDEX_PATH.touch()
-        INDEX_PATH.write_text("[]")
+        if not INDEX_PATH.exists() or INDEX_PATH.stat().st_size == 0:
+            INDEX_PATH.write_text("[]")
 
     with open(INDEX_PATH, "r") as file:
         indexFileContent:list = json.load(file)
@@ -35,10 +36,10 @@ def create(car: Car):
 
 
     with open(INDEX_PATH, "w") as file:
-        json.dump(indexFileContent, file)
+        json.dump(indexFileContent, file, indent=4)
 
 
-def list():
+def listCars():
     with open(INDEX_PATH, "r") as file:
         indexFileContent:list = json.load(file)
 
@@ -46,3 +47,13 @@ def list():
     for car in indexFileContent:
         count += 1
         print(f"{count}) matricula: {car['registration']} - preço: {car['price']}€")
+
+
+def delete(registration: str):
+    with open(INDEX_PATH, "r") as file:
+        indexFileContent:list = json.load(file)
+    
+    indexFileContent = list(filter(lambda c: c["registration"] != registration, indexFileContent))
+    
+    with open(INDEX_PATH, "w") as file:
+        json.dump(indexFileContent, file, indent=4)
