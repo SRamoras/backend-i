@@ -1,8 +1,8 @@
-from typer import Typer
+import typer
 from services import car_service
 from data.models import Car
 
-cli = Typer()
+cli = typer.Typer()
 
 
 @cli.command()
@@ -25,6 +25,15 @@ def listCars():
 def delete(registration: str):
     car_service.delete(registration)
 
+
+@cli.command()
+def search(
+    registration: str = None,
+    model: str = None,
+    min_price: float = None,
+    max_price: float = None
+):
+    car_service.searchCars(registration, model, min_price, max_price)
 
 if __name__ == "__main__":
     cli()

@@ -1,6 +1,24 @@
 [
     {
-        "registration": "dsadddd",
+        "registration": "dsa",
+        "model": "dsadas",
+        "price": 321.31,
+        "date": "dsda"
+    },
+    {
+        "registration": "dsdda",
+        "model": "dsadas",
+        "price": 321.31,
+        "date": "dsda"
+    },
+    {
+        "registration": "dsddsada",
+        "model": "dsadas",
+        "price": 321.31,
+        "date": "dsda"
+    },
+    {
+        "registration": "DS-AW-23",
         "model": "dsadas",
         "price": 321.31,
         "date": "dsda"
