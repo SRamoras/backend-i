@@ -1,6 +1,6 @@
 from services.utils import handle_error
 import typer
-from services.car_service import create_car, list_cars, delete_car, search_cars, print_cars
+from services.car_service import create_car, list_cars, delete_car, search_cars, print_cars, update_car
 from data.models import Car
 
 cli = typer.Typer(help="Car Stand Management CLI application")
@@ -21,7 +21,6 @@ def create_car(registration: str, model: str, price: float, date: str) -> None:
     print(f"Car '{registration}' created successfully")
 
 
-
 @cli.command()
 def list_cars() -> None:
     """
@@ -34,7 +33,6 @@ def list_cars() -> None:
     handle_error(action)
 
 
-
 @cli.command()
 def delete_car(registration: str) -> None:
     """
@@ -45,8 +43,6 @@ def delete_car(registration: str) -> None:
         print(f"Car '{registration}' removed successfully")
 
     handle_error(action)
-
-
 
 
 @cli.command()
@@ -72,6 +68,23 @@ def search_cars(
 
     handle_error(action)
 
+
+@cli.command()
+def update_car(
+    registration: str,
+    model: str | None = None,
+    price: float | None = None,
+    date: str | None = None
+) -> None:
+    """
+    Updates an existing car.
+    """
+
+    def action():
+        update_car(registration, model, price, date)
+        print(f"Car '{registration}' updated successfully")
+
+    handle_error(action)
 
 
 if __name__ == "__main__":

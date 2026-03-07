@@ -143,6 +143,46 @@ def search_cars(
     return results
 
 
+def update_car(
+    registration: str,
+    model: str | None = None,
+    price: float | None = None,
+    date: str | None = None
+) -> None:
+    """
+    Updates an existing car using its registration.
+
+    Only the provided fields will be updated.
+
+    Args:
+        registration (str): Registration of the car to update
+        model (str | None): New model
+        price (float | None): New price
+        date (str | None): New date
+
+    Raises:
+        ValueError: If the car does not exist
+    """
+
+    cars = ensureJson(INDEX_PATH)
+
+    car = next((c for c in cars if c["registration"] == registration), None)
+
+    if not car:
+        raise ValueError(f"Car with registration '{registration}' not found")
+
+    if model is not None:
+        car["model"] = model
+
+    if price is not None:
+        car["price"] = round(price, 2)
+
+    if date is not None:
+        car["date"] = date
+
+    saveJson(INDEX_PATH, cars)
+
+
 def print_cars(cars: list[dict]) -> None:
     """
     Prints a formatted list of cars.
