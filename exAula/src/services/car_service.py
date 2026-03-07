@@ -5,77 +5,155 @@ from dataclasses import asdict
 from .utils import ensureJson, saveJson
 
 BASE_PATH = Path("stand")
-INDEX_PATH = Path(BASE_PATH/"index_stand.json")
+INDEX_PATH = Path(BASE_PATH / "index_stand.json")
 
 
-def create(car: Car):
+def create_car(car: Car) -> None:
+    """
+    Creates a new car entry.
+
+    This function:
+    - Generates a unique markdown file for the car.
+    - Saves the car information in the stand directory.
+    - Updates the JSON index file with the new car.
+
+    Args:
+        car (Car): Car object containing registration, model, price and date.
+    """
+
     carFile = f"{BASE_PATH}/{uuid4()}.md"
-   
+
     with open(carFile, "w") as file:
         file.writelines(str(car))
 
     indexFileContent = ensureJson(INDEX_PATH)
 
-    newIdex = asdict(
-        Car(
-            registration=car.registration,
-            model=car.model,
-            price=car.price,
-            date=car.date,
-        )
-    )
-    indexFileContent.append(newIdex)
+    newIndex = asdict(car)
+
+    indexFileContent.append(newIndex)
     saveJson(INDEX_PATH, indexFileContent)
 
 
+def list_cars() -> list[dict]:
+    """
+    Retrieves all cars stored in the stand.
 
-def listCars():
+    Returns:
+        list[dict]: A list of dictionaries representing the cars stored in the JSON index.
+
+    Raises:
+        ValueError: If no cars are registered in the stand.
+    """
+
+    cars = ensureJson(INDEX_PATH)
+
+    if not cars:
+        raise ValueError("No cars registered in the stand")
+
+    return cars
+
+
+def delete_car(registration: str) -> None:
+    """
+    Deletes a car from the stand using its registration number.
+
+    Args:
+        registration (str): The registration number of the car to delete.
+
+    Raises:
+        ValueError: If no car with the given registration exists.
+    """
+
     index_file_content = ensureJson(INDEX_PATH)
-    if not index_file_content:
-        print("Nenhum carro cadastrado")
-        return
 
-    for idx, car in enumerate(index_file_content, start=1):
-        print(f"{idx}) Matrícula: {car['registration']} - Modelo: {car['model']} - Preço: {car['price']}€")
+    exists = any(c["registration"] == registration for c in index_file_content)
 
+    if not exists:
+        raise ValueError(f"Car with registration '{registration}' not found")
 
-def delete(registration: str):
-    index_file_content = ensureJson(INDEX_PATH)
-    
-    existe = any(c["registration"] == registration for c in index_file_content)
-    if not existe:
-        print(f"Nenhum carro com a matrícula '{registration}' encontrado ❌")
-        return
+    index_file_content = [
+        c for c in index_file_content if c["registration"] != registration
+    ]
 
-    index_file_content = [c for c in index_file_content if c["registration"] != registration]
     saveJson(INDEX_PATH, index_file_content)
-    print(f"Carro com matrícula '{registration}' removido com sucesso ✅")
 
 
-def searchCars(registration: str = None, model: str = None, min_price: float = None, max_price: float = None):
+def search_cars(
+    registration: str = None,
+    model: str = None,
+    min_price: float = None,
+    max_price: float = None,
+) -> list[dict]:
     """
-    Search cars by registration, model, or price range.
+    Searches for cars using optional filters.
+
+    Filters can be applied by:
+    - registration (partial match)
+    - model (partial match)
+    - minimum price
+    - maximum price
+
+    Args:
+        registration (str | None): Registration filter.
+        model (str | None): Model filter.
+        min_price (float | None): Minimum price filter.
+        max_price (float | None): Maximum price filter.
+
+    Returns:
+        list[dict]: List of cars matching the filters.
+
+    Raises:
+        ValueError: If no cars exist or no cars match the filters.
     """
+
     index_file_content = ensureJson(INDEX_PATH)
 
     if not index_file_content:
-        print("Nenhum carro cadastrado 😕")
-        return
+        raise ValueError("No cars registered in the stand")
 
     results = index_file_content
 
     if registration:
-        results = [c for c in results if registration.lower() in c["registration"].lower()]
+        results = [
+            c for c in results
+            if registration.lower() in c["registration"].lower()
+        ]
+
     if model:
-        results = [c for c in results if model.lower() in c["model"].lower()]
+        results = [
+            c for c in results
+            if model.lower() in c["model"].lower()
+        ]
+
     if min_price is not None:
-        results = [c for c in results if c["price"] >= min_price]
+        results = [
+            c for c in results
+            if c["price"] >= min_price
+        ]
+
     if max_price is not None:
-        results = [c for c in results if c["price"] <= max_price]
+        results = [
+            c for c in results
+            if c["price"] <= max_price
+        ]
 
     if not results:
-        print("Nenhum carro encontrado com os filtros fornecidos 😕")
-        return
+        raise ValueError("No cars found with the provided filters")
 
-    for idx, car in enumerate(results, start=1):
-        print(f"{idx}) Matrícula: {car['registration']} - Modelo: {car['model']} - Preço: {car['price']}€")
+    return results
+
+
+def print_cars(cars: list[dict]) -> None:
+    """
+    Prints a formatted list of cars.
+
+    Args:
+        cars (list[dict]): List of cars to display.
+    """
+
+    for idx, car in enumerate(cars, start=1):
+        print(
+            f"{idx}) Matrícula: {car['registration']} - "
+            f"Modelo: {car['model']} - "
+            f"Preço: {car['price']}€"
+        )

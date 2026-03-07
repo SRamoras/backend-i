@@ -22,5 +22,11 @@
         "model": "dsadas",
         "price": 321.31,
         "date": "dsda"
+    },
+    {
+        "registration": "dsadsa",
+        "model": "mitsubishi",
+        "price": 32.0,
+        "date": "32d321321"
     }
 ]

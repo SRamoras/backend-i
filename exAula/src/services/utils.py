@@ -15,3 +15,16 @@ def saveJson(path: Path, data):
     """Save a Python list to a JSON file."""
     with open(path, "w") as file:
         json.dump(data, file, indent=4)
+
+
+def handle_error(func) -> None:
+    """
+    Executes a function and catches ValueError exceptions.
+
+    If a ValueError occurs, the error message is printed in a user-friendly way.
+    This avoids repeating try/except blocks in every CLI command.
+    """
+    try:
+        func()
+    except ValueError as e:
+        print(f"❌ {e}")
