@@ -1,6 +1,6 @@
 from services.utils import handle_error
 import typer
-from services.car_service import create_car, list_cars, delete_car, search_cars, print_cars, update_car
+from services import car_service
 from data.models import Car
 
 cli = typer.Typer(help="Car Stand Management CLI application")
@@ -17,7 +17,9 @@ def create_car(registration: str, model: str, price: float, date: str) -> None:
         price=round(price, 2),
         date=date
     )
-    create_car(car=newCar)
+
+    car_service.create_car(newCar)
+
     print(f"Car '{registration}' created successfully")
 
 
@@ -27,8 +29,8 @@ def list_cars() -> None:
     Lists all cars registered in the stand.
     """
     def action():
-        cars = list_cars()
-        print_cars(cars)
+        cars = car_service.list_cars()
+        car_service.print_cars(cars)
 
     handle_error(action)
 
@@ -39,7 +41,7 @@ def delete_car(registration: str) -> None:
     Deletes a car from the stand.
     """
     def action():
-        delete_car(registration)
+        car_service.delete_car(registration)
         print(f"Car '{registration}' removed successfully")
 
     handle_error(action)
@@ -54,17 +56,11 @@ def search_cars(
 ) -> None:
     """
     Searches for cars in the stand using optional filters.
-
-    Filters:
-    - registration: search by registration number
-    - model: search by car model
-    - min_price: minimum price filter
-    - max_price: maximum price filter
     """
 
-    def action() -> None:
-        cars = search_cars(registration, model, min_price, max_price)
-        print_cars(cars)
+    def action():
+        cars = car_service.search_cars(registration, model, min_price, max_price)
+        car_service.print_cars(cars)
 
     handle_error(action)
 
@@ -81,7 +77,7 @@ def update_car(
     """
 
     def action():
-        update_car(registration, model, price, date)
+        car_service.update_car(registration, model, price, date)
         print(f"Car '{registration}' updated successfully")
 
     handle_error(action)
