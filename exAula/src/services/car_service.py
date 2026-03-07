@@ -185,15 +185,27 @@ def update_car(
 
 def print_cars(cars: list[dict]) -> None:
     """
-    Prints a formatted list of cars.
-
-    Args:
-        cars (list[dict]): List of cars to display.
+    Prints a formatted table of cars with colors.
     """
+
+    RESET = "\033[0m"
+    CYAN = "\033[96m"
+    YELLOW = "\033[93m"
+    GREEN = "\033[92m"
+    BLUE = "\033[94m"
+    BOLD = "\033[1m"
+
+    print(f"\n{CYAN}🚗 Cars in Stand{RESET}\n")
+
+    print(f"{BOLD}{'#':<3} {'Registration':<15} {'Model':<12} {'Price'}{RESET}")
+    print(f"{CYAN}{'-' * 45}{RESET}")
 
     for idx, car in enumerate(cars, start=1):
         print(
-            f"{idx}) Matrícula: {car['registration']} - "
-            f"Modelo: {car['model']} - "
-            f"Preço: {car['price']}€"
+            f"{BLUE}{idx:<3}{RESET} "
+            f"{YELLOW}{car['registration']:<15}{RESET} "
+            f"{GREEN}{car['model']:<12}{RESET} "
+            f"{CYAN}{car['price']}€{RESET}"
         )
+
+    print()
