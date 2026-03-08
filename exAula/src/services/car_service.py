@@ -12,20 +12,18 @@ def create_car(car: Car) -> None:
     """
     Creates a new car entry in the stand.
 
-    This function performs the following steps:
-    - Ensures the stand directory exists.
+    This function:
+    - Ensures the data file exists.
     - Checks if a car with the same registration already exists.
-    - Creates a markdown file containing the car information.
-    - Updates the JSON index file with the new car entry.
+    - Adds the car to the JSON index file.
 
     Args:
-        car (Car): Car object containing registration, model, price, and date.
+        car (Car): Car object containing registration, model, price and date.
+        notes (str | None): Optional notes about the car.
 
     Raises:
         ValueError: If a car with the same registration already exists.
     """
-
-    BASE_PATH.mkdir(exist_ok=True)
 
     cars = ensureJson(INDEX_PATH)
 
@@ -34,21 +32,11 @@ def create_car(car: Car) -> None:
     if exists:
         raise ValueError(f"Car with registration '{car.registration}' already exists")
 
-
-    file_name = f"{car.registration}.md"
-    carFile = BASE_PATH / file_name
-
-    with open(carFile, "w", encoding="utf-8") as file:
-        file.write(str(car))
-
-    
     newIndex = asdict(car)
-    newIndex["file"] = file_name
 
     cars.append(newIndex)
 
     saveJson(INDEX_PATH, cars)
-
 
 
 def list_cars() -> list[dict]:

@@ -4,6 +4,7 @@ from pathlib import Path
 
 def ensureJson(path: Path):
     """Ensure the JSON file exists and return its content as a list."""
+
     if not path.exists() or path.stat().st_size == 0:
         path.parent.mkdir(exist_ok=True)
         path.write_text("[]")
@@ -17,7 +18,8 @@ def saveJson(path: Path, data):
     path.parent.mkdir(exist_ok=True)
 
     with open(path, "w", encoding="utf-8") as file:
-        json.dump(data, file, indent=4)
+        json.dump(data, file)
+
 
 def handle_error(func) -> None:
     """
@@ -26,6 +28,7 @@ def handle_error(func) -> None:
     If a ValueError occurs, the error message is printed in a user-friendly way.
     This avoids repeating try/except blocks in every CLI command.
     """
+
     try:
         func()
     except ValueError as e:

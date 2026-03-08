@@ -2,24 +2,36 @@ from services.utils import handle_error
 import typer
 from services import car_service
 from data.models import Car
-
+from datetime import datetime
 cli = typer.Typer(help="Car Stand Management CLI application")
 
+from datetime import datetime
+from datetime import datetime
 
 @cli.command()
-def create_car(registration: str, model: str, price: float, date: str) -> None:
+def create_car(
+    registration: str,
+    model: str,
+    price: float,
+    date: str,
+) -> None:
     """
     Creates a new car in the stand.
     """
-    newCar = Car(
-        registration=registration,
-        model=model,
-        price=round(price, 2),
-        date=date
-    )
 
     def action():
+
+        parsed_date = datetime.strptime(date, "%d-%m-%Y")
+
+        newCar = Car(
+            registration=registration,
+            model=model,
+            price=round(price, 2),
+            date=parsed_date.strftime("%d-%m-%Y"),
+        )
+
         car_service.create_car(newCar)
+
         print(f"Car '{registration}' created successfully")
 
     handle_error(action)
@@ -80,18 +92,6 @@ def update_car(
     def action():
         car_service.update_car(registration, model, price, date)
         print(f"Car '{registration}' updated successfully")
-
-    handle_error(action)
-
-
-@cli.command()
-def show_car(registration: str) -> None:
-    """
-    Displays the detailed markdown file of a car.
-    """
-
-    def action():
-        car_service.show_car(registration)
 
     handle_error(action)
 
