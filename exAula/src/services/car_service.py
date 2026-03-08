@@ -201,6 +201,37 @@ def update_car(
 
 
 
+def show_car(registration: str) -> None:
+    """
+    Displays the markdown file of a specific car.
+
+    This function:
+    - Searches for the car in the JSON index using its registration.
+    - Locates the corresponding markdown file.
+    - Prints the contents of the markdown file.
+
+    Args:
+        registration (str): Registration number of the car.
+
+    Raises:
+        ValueError: If the car does not exist or the file cannot be found.
+    """
+
+    cars = ensureJson(INDEX_PATH)
+
+    car = next((c for c in cars if c["registration"] == registration), None)
+
+    if not car:
+        raise ValueError(f"Car with registration '{registration}' not found")
+
+    car_path = BASE_PATH / car["file"]
+
+    if not car_path.exists():
+        raise ValueError(f"File for car '{registration}' not found")
+
+    with open(car_path, "r", encoding="utf-8") as file:
+        print(file.read())
+
 
 
 def print_cars(cars: list[dict]) -> None:

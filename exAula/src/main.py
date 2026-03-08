@@ -84,7 +84,16 @@ def update_car(
     handle_error(action)
 
 
+@cli.command()
+def show_car(registration: str) -> None:
+    """
+    Displays the detailed markdown file of a car.
+    """
 
+    def action():
+        car_service.show_car(registration)
+
+    handle_error(action)
 
 
 if __name__ == "__main__":
