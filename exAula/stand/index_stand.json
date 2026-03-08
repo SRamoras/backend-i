@@ -1,32 +1,45 @@
 [
     {
-        "registration": "dsa",
-        "model": "dsadas",
-        "price": 321.31,
-        "date": "dsda"
+        "registration": "CC-22-DD",
+        "model": "Audi",
+        "price": 18000.0,
+        "date": "2023-12-01"
+    },
+    {
+        "registration": "EE-33-FF",
+        "model": "Mercedes",
+        "price": 22000.0,
+        "date": "2022-10-10"
+    },
+    {
+        "registration": "AA-33-FF",
+        "model": "Mercedes",
+        "price": 22000.0,
+        "date": "2022-10-10"
     },
     {
         "registration": "AA-11-BB",
-        "model": "dsadas",
-        "price": 321.31,
-        "date": "dsda"
+        "model": "BMW",
+        "price": 15000.0,
+        "date": "2024-03-07"
     },
     {
-        "registration": "dsddsada",
-        "model": "dsadas",
-        "price": 321.31,
-        "date": "dsda"
+        "registration": "AB-11-BB",
+        "model": "BMW",
+        "price": 15000.0,
+        "date": "2024-03-07"
     },
     {
-        "registration": "DS-AW-23",
-        "model": "dsadas",
-        "price": 321.31,
-        "date": "dsda"
+        "registration": "AB-11-BE",
+        "model": "BMW",
+        "price": 15000.0,
+        "date": "2024-03-07"
     },
     {
-        "registration": "dsadsa",
-        "model": "mitsubishi",
-        "price": 32.0,
-        "date": "32d321321"
+        "registration": "AB-G1-BB",
+        "model": "BMW",
+        "price": 15000.0,
+        "date": "2024-03-07",
+        "file": "AB-G1-BB.md"
     }
 ]

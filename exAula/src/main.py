@@ -18,10 +18,11 @@ def create_car(registration: str, model: str, price: float, date: str) -> None:
         date=date
     )
 
-    car_service.create_car(newCar)
+    def action():
+        car_service.create_car(newCar)
+        print(f"Car '{registration}' created successfully")
 
-    print(f"Car '{registration}' created successfully")
-
+    handle_error(action)
 
 @cli.command()
 def list_cars() -> None:
@@ -81,6 +82,9 @@ def update_car(
         print(f"Car '{registration}' updated successfully")
 
     handle_error(action)
+
+
+
 
 
 if __name__ == "__main__":

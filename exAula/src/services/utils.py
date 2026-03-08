@@ -13,9 +13,11 @@ def ensureJson(path: Path):
 
 def saveJson(path: Path, data):
     """Save a Python list to a JSON file."""
-    with open(path, "w") as file:
-        json.dump(data, file, indent=4)
 
+    path.parent.mkdir(exist_ok=True)
+
+    with open(path, "w", encoding="utf-8") as file:
+        json.dump(data, file, indent=4)
 
 def handle_error(func) -> None:
     """

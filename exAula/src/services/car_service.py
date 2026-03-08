@@ -10,28 +10,45 @@ INDEX_PATH = Path(BASE_PATH / "index_stand.json")
 
 def create_car(car: Car) -> None:
     """
-    Creates a new car entry.
+    Creates a new car entry in the stand.
 
-    This function:
-    - Generates a unique markdown file for the car.
-    - Saves the car information in the stand directory.
-    - Updates the JSON index file with the new car.
+    This function performs the following steps:
+    - Ensures the stand directory exists.
+    - Checks if a car with the same registration already exists.
+    - Creates a markdown file containing the car information.
+    - Updates the JSON index file with the new car entry.
 
     Args:
-        car (Car): Car object containing registration, model, price and date.
+        car (Car): Car object containing registration, model, price, and date.
+
+    Raises:
+        ValueError: If a car with the same registration already exists.
     """
 
-    carFile = f"{BASE_PATH}/{uuid4()}.md"
+    BASE_PATH.mkdir(exist_ok=True)
 
-    with open(carFile, "w") as file:
-        file.writelines(str(car))
+    cars = ensureJson(INDEX_PATH)
 
-    indexFileContent = ensureJson(INDEX_PATH)
+    exists = any(c["registration"] == car.registration for c in cars)
 
+    if exists:
+        raise ValueError(f"Car with registration '{car.registration}' already exists")
+
+
+    file_name = f"{car.registration}.md"
+    carFile = BASE_PATH / file_name
+
+    with open(carFile, "w", encoding="utf-8") as file:
+        file.write(str(car))
+
+    
     newIndex = asdict(car)
+    newIndex["file"] = file_name
 
-    indexFileContent.append(newIndex)
-    saveJson(INDEX_PATH, indexFileContent)
+    cars.append(newIndex)
+
+    saveJson(INDEX_PATH, cars)
+
 
 
 def list_cars() -> list[dict]:
@@ -181,6 +198,9 @@ def update_car(
         car["date"] = date
 
     saveJson(INDEX_PATH, cars)
+
+
+
 
 
 def print_cars(cars: list[dict]) -> None:
