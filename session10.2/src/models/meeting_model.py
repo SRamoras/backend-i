@@ -1,9 +1,13 @@
 from datetime import datetime
-from uuid import UUID
 from pydantic import BaseModel
+from uuid import UUID
 
 class Meeting(BaseModel):
-    id:UUID
     name:str
     owner:str
     date:datetime
+    notes:str
+
+class MeetingSummary(BaseModel):
+    id:UUID
+    summary:str
