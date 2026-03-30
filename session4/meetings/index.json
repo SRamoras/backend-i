@@ -1,18 +1,22 @@
 [
     {
         "metting": {
-            "title": "ola",
-            "owner": "das",
-            "date": "dsa"
+            "title": "Sprint",
+            "owner": "alice",
+            "date": "2025-06-15",
+            "participants": [],
+            "action_items": []
         },
-        "path": "meetings/a06dea4f-55f1-42ea-bbf5-04a6ccfb49ee.md"
+        "path": "meetings/a2b21464-bb51-40f2-9e29-5d59b5e36de7.md"
     },
     {
         "metting": {
-            "title": "ola",
-            "owner": "das",
-            "date": "dsa"
+            "title": "Sprint",
+            "owner": "alice",
+            "date": "2025-06-15",
+            "participants": [],
+            "action_items": []
         },
-        "path": "meetings/61693bb9-a4a0-4880-bae9-97d3a432e313.md"
+        "path": "meetings/efefadac-8c42-4f33-8ee7-a59d0aa2e75f.md"
     }
 ]
