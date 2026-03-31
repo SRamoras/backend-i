@@ -1,7 +1,17 @@
 [project]
 name = "session10"
 version = "0.1.0"
-description = "Add your description here"
+description = "Meetings CRUD API — Session 10"
 readme = "README.md"
-requires-python = ">=3.9"
-dependencies = []
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.0",
+    "pydantic>=2.7.0",
+    "uvicorn>=0.30.0",
+    "typer>=0.12.0",
+    "httpx>=0.28.0",
+    "pytest>=8.0.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["app"]
