@@ -1,0 +1,15 @@
+[project]
+name = "session9"
+version = "0.1.0"
+description = "Pydantic and Contracts - robust input/output schemas with FastAPI"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.0",
+    "httpx>=0.28.1",
+    "pydantic>=2.7.0",
+    "uvicorn>=0.30.0",
+]
+
+[project.scripts]
+serve = "app.api.main:start"
